@@ -38,3 +38,13 @@ class Order(models.Model):
 
     def __str__(self):
         return self.order_id
+
+    # This will use in the details of pizza page
+    @staticmethod
+    def give_order_details(order_id):
+        instance = Order.objects.filter(order_id=order_id)
+        data = {}
+        data['order_id'] = instance.order_id
+        data['amount'] = instance.amount
+        data['status'] = instance.status
+        return data
