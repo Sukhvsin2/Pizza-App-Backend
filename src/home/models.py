@@ -1,6 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import User
 import string
+import random
+
 
 class Pizza(models.Model):
     name = models.CharField(max_length=100)
