@@ -8,17 +8,21 @@ https://docs.djangoproject.com/en/3.1/howto/deployment/asgi/
 """
 
 import os
-
+from channels.routing import ProtocolTypeRouter,URLRouter
+from channels.auth import AuthMiddlewareStack
+from django.urls import path, re_path
 from django.core.asgi import get_asgi_application
-from channels.auth import AuthMiddleware
-from channels.routing import URLRouter, ProtocolTypeRouter
-
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'pizzaBackend.settings')
+from home import consumers
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'pizza.settings')
 
 application = get_asgi_application()
 
-ws_patter = []
+ws_pattern= [
+    path('ws/pizza/<order_id>',consumers.OrderProgress),
+]
 
-application = ProtocolTypeRouter({
-    "websocket": AuthMiddleware(URLRouter(ws_patter))
-})
+application= ProtocolTypeRouter(
+    {
+        'websocket':AuthMiddlewareStack(URLRouter(ws_pattern))
+    }
+)
