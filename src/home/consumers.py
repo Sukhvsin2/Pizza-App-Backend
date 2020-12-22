@@ -5,7 +5,6 @@ from asgiref.sync import async_to_sync, sync_to_async
 
 class OrderProgress(WebsocketConsumer):
     def connect(self):
-        print('chcchchc')
         self.room_name = self.scope['url_route']['kwargs']['order_id']
         self.room_group_name = 'order_%s' % self.room_name
         print('Connected')
