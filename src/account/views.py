@@ -24,7 +24,10 @@ class LoginView(APIView):
         password = request.data['password']
         try:
             user = User.objects.get(username=username)
-            return Response(status=status.HTTP_200_OK)
+            if user.password == password:
+                return Response(status=status.HTTP_200_OK)
+            else:
+                return Response({'message': 'username or password incorrect'}, status=status.HTTP_404_NOT_FOUND)
         except:
             return Response({'message': 'username or password incorrect'}, status=status.HTTP_404_NOT_FOUND)
         # if user.DoesNotExist:
