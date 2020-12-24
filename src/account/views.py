@@ -4,8 +4,6 @@ from rest_framework.response import Response
 from django.contrib.auth.models import User, update_last_login
 from django.contrib.auth import authenticate
 from rest_framework_simplejwt.tokens import RefreshToken
-from json import encoder
-from .models import MyUserToken
 
 class RegisterView(APIView):
 
